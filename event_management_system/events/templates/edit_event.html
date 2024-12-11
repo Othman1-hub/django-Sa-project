@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Event - Event Management System{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h2><i class="fas fa-edit icon"></i>Edit Event: {{ event.name }}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save icon"></i>Save Changes</button>
+        <a href="{% url 'event_details' event.id %}" class="btn btn-secondary"><i class="fas fa-times icon"></i>Cancel</a>
+    </form>
+</section>
+{% endblock %}
+

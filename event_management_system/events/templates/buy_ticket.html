@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Buy Ticket - Event Management System{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h2><i class="fas fa-ticket-alt icon"></i>Buy Ticket for {{ event.name }}</h2>
+    <div class="event-details">
+        <p><i class="fas fa-calendar-day icon"></i>{{ event.date }}</p>
+        <p><i class="fas fa-map-marker-alt icon"></i>{{ event.venue }}</p>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>{{ form.meal_option.label }}</label>
+            {% for radio in form.meal_option %}
+                <div class="radio-option">
+                    {{ radio.tag }}
+                    <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                </div>
+            {% endfor %}
+        </div>
+        {% if form.meal_option.errors %}
+            {% for error in form.meal_option.errors %}
+                <p class="error-message">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+        <button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart icon"></i>Purchase Ticket</button>
+    </form>
+</section>
+{% endblock %}
+
+

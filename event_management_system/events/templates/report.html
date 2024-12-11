@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Event Reports - Event Management System{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h2><i class="fas fa-chart-bar icon"></i>Event Reports</h2>
+    {% if report_data %}
+        {% for data in report_data %}
+            <div class="card">
+                <h3>{{ data.event.name }}</h3>
+                <p><i class="fas fa-ticket-alt icon"></i>Tickets Sold: {{ data.tickets_sold }}</p>
+                <p><i class="fas fa-star icon"></i>Average Rating: {{ data.avg_rating|floatformat:1 }}</p>
+                <a href="{% url 'event_details' data.event.id %}" class="btn btn-primary"><i class="fas fa-info-circle icon"></i>Event Details</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No event data available.</p>
+    {% endif %}
+</section>
+{% endblock %}
+

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Event Management System{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h2><i class="fas fa-sign-in-alt icon"></i>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt icon"></i>Login</button>
+    </form>
+    <p class="mt-3">Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+</section>
+{% endblock %}

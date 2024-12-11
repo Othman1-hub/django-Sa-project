@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ event.name }} - Event Management System{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h2>{{ event.name }}</h2>
+    {% if event.image %}
+        <img src="{{ event.image.url }}" alt="{{ event.name }}" class="event-image">
+    {% endif %}
+    <p><i class="fas fa-calendar-day icon"></i>{{ event.date }}</p>
+    <p><i class="fas fa-map-marker-alt icon"></i>{{ event.venue }}</p>
+    <p><i class="fas fa-user icon"></i>Organized by: {{ event.organizer.username }}</p>
+    <div class="event-description">
+        <h3>Description</h3>
+        <p>{{ event.description }}</p>
+    </div>
+    {% if user.is_authenticated and not user.is_organizer %}
+        <a href="{% url 'buy_ticket' event.id %}" class="btn btn-primary"><i class="fas fa-ticket-alt icon"></i>Buy Ticket</a>
+    {% endif %}
+    {% if user == event.organizer %}
+        <a href="{% url 'edit_event' event.id %}" class="btn btn-secondary"><i class="fas fa-edit icon"></i>Edit Event</a>
+    {% endif %}
+</section>
+{% endblock %}
+
